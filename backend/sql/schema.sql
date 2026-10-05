@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS clients (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(120) NOT NULL,
+  email VARCHAR(160) UNIQUE NOT NULL,
+  phone VARCHAR(30),
+  city VARCHAR(100),
+  status BOOLEAN NOT NULL DEFAULT TRUE,
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_clients_name ON clients (name);
+CREATE INDEX IF NOT EXISTS idx_clients_city ON clients (city);
+

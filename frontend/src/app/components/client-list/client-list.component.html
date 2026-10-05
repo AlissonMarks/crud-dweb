@@ -1,0 +1,94 @@
+<section class="hero-row">
+  <div>
+    <span class="eyebrow">Gestão comercial</span>
+    <h1>Clientes</h1>
+    <p>Consulte e mantenha os contatos da sua carteira.</p>
+  </div>
+  <a routerLink="/novo" class="btn btn-primary"><span aria-hidden="true">＋</span> Novo cliente</a>
+</section>
+
+<section class="filters card" aria-label="Filtros de clientes">
+  <label class="search-field">
+    <span class="sr-only">Buscar por nome</span>
+    <span class="search-icon" aria-hidden="true">⌕</span>
+    <input
+      type="search"
+      [(ngModel)]="searchName"
+      (input)="load()"
+      placeholder="Buscar cliente por nome"
+    />
+  </label>
+
+  <label>
+    <span class="sr-only">Filtrar por status</span>
+    <select [(ngModel)]="statusFilter" (change)="load()">
+      <option value="">Todos os status</option>
+      <option value="true">Ativos</option>
+      <option value="false">Inativos</option>
+    </select>
+  </label>
+
+  <button type="button" class="btn btn-ghost" (click)="clearFilters()">Limpar filtros</button>
+</section>
+
+<p *ngIf="errorMessage" class="alert alert-error" role="alert">{{ errorMessage }}</p>
+
+<section class="table-card" [attr.aria-busy]="loading">
+  <div class="table-summary">
+    <strong>{{ clients.length }} {{ clients.length === 1 ? 'cliente' : 'clientes' }}</strong>
+    <span *ngIf="loading" class="loading-text">Atualizando…</span>
+  </div>
+
+  <div class="table-scroll" *ngIf="clients.length; else emptyState">
+    <table>
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Telefone</th>
+          <th>Cidade</th>
+          <th>Status</th>
+          <th><span class="sr-only">Ações</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of clients; trackBy: trackByClient">
+          <td>
+            <strong>{{ client.name }}</strong>
+            <small>{{ client.email }}</small>
+          </td>
+          <td>{{ client.phone || '—' }}</td>
+          <td>{{ client.city || '—' }}</td>
+          <td>
+            <span class="status" [class.status-active]="client.status" [class.status-inactive]="!client.status">
+              <span class="status-dot" aria-hidden="true"></span>
+              {{ client.status ? 'Ativo' : 'Inativo' }}
+            </span>
+          </td>
+          <td>
+            <div class="row-actions">
+              <a [routerLink]="['/editar', client.id]" class="btn btn-secondary">Editar</a>
+              <button type="button" class="btn btn-danger" (click)="remove(client)">Excluir</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<ng-template #emptyState>
+  <div class="empty-state" *ngIf="!loading; else loadingState">
+    <span class="empty-icon" aria-hidden="true">◎</span>
+    <h2>Nenhum cliente encontrado</h2>
+    <p>Ajuste os filtros ou cadastre o primeiro cliente.</p>
+    <a routerLink="/novo" class="btn btn-primary">Cadastrar cliente</a>
+  </div>
+</ng-template>
+
+<ng-template #loadingState>
+  <div class="empty-state">
+    <span class="spinner" aria-hidden="true"></span>
+    <p>Carregando clientes…</p>
+  </div>
+</ng-template>
+

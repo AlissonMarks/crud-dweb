@@ -1,0 +1,57 @@
+:host {
+  display: block;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 190px auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 18px;
+  padding: 14px;
+}
+
+.search-field {
+  position: relative;
+}
+
+.search-field input {
+  padding-left: 40px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-52%);
+  color: var(--muted);
+  font-size: 23px;
+  pointer-events: none;
+}
+
+.loading-text {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+td:first-child strong,
+td:first-child small {
+  display: block;
+}
+
+td:first-child small {
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+@media (max-width: 720px) {
+  .filters {
+    grid-template-columns: 1fr;
+  }
+
+  .filters .btn {
+    justify-content: center;
+  }
+}
+

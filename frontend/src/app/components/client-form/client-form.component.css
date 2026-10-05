@@ -1,0 +1,193 @@
+:host {
+  display: block;
+}
+
+.form-page {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 28px;
+}
+
+.form-heading {
+  margin-bottom: 24px;
+}
+
+.form-heading h1 {
+  margin: 4px 0 8px;
+}
+
+.form-heading p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.form-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 30px;
+}
+
+fieldset:disabled {
+  opacity: 0.7;
+}
+
+legend {
+  width: 100%;
+  padding: 0 0 20px;
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.field-full {
+  grid-column: 1 / -1;
+}
+
+.field > span {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.field b {
+  color: var(--danger);
+}
+
+.field-error {
+  color: var(--danger);
+  font-size: 12px;
+}
+
+.status-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid var(--border);
+  margin-top: 28px;
+  padding-top: 24px;
+  cursor: pointer;
+}
+
+.status-toggle input {
+  position: absolute;
+  opacity: 0;
+}
+
+.toggle {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  background: #cbd5e1;
+  border-radius: 999px;
+  transition: 0.18s ease;
+  flex: 0 0 auto;
+}
+
+.toggle::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 3px;
+  top: 3px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.28);
+  transition: 0.18s ease;
+}
+
+.status-toggle input:checked + .toggle {
+  background: var(--primary);
+}
+
+.status-toggle input:checked + .toggle::after {
+  transform: translateX(18px);
+}
+
+.status-toggle input:focus-visible + .toggle {
+  box-shadow: 0 0 0 4px var(--primary-soft);
+}
+
+.status-toggle strong,
+.status-toggle small {
+  display: block;
+}
+
+.status-toggle small {
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid var(--border);
+  margin: 28px -30px -30px;
+  padding: 20px 30px;
+  background: #f8fafc;
+}
+
+.form-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 30px;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+
+@media (max-width: 620px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field-full {
+    grid-column: auto;
+  }
+
+  fieldset {
+    padding: 22px;
+  }
+
+  .form-actions {
+    margin: 24px -22px -22px;
+    padding: 18px 22px;
+    flex-direction: column-reverse;
+  }
+
+  .form-actions .btn {
+    justify-content: center;
+  }
+}
+

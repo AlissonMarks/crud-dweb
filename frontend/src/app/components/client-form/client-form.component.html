@@ -1,0 +1,97 @@
+<section class="form-page">
+  <a routerLink="/" class="back-link"><span aria-hidden="true">←</span> Voltar para clientes</a>
+
+  <header class="form-heading">
+    <span class="eyebrow">{{ id ? 'Atualização cadastral' : 'Novo cadastro' }}</span>
+    <h1>{{ id ? 'Editar cliente' : 'Cadastrar cliente' }}</h1>
+    <p>Preencha os dados de contato e o status do relacionamento.</p>
+  </header>
+
+  <p *ngIf="errorMessage" class="alert alert-error" role="alert">{{ errorMessage }}</p>
+
+  <form #clientForm="ngForm" class="form-card" (ngSubmit)="save(clientForm)" novalidate>
+    <div *ngIf="loading" class="form-loading" aria-live="polite">
+      <span class="spinner" aria-hidden="true"></span>
+      Carregando dados…
+    </div>
+
+    <fieldset [disabled]="loading || saving">
+      <legend>Informações do cliente</legend>
+
+      <div class="form-grid">
+        <label class="field field-full">
+          <span>Nome completo <b aria-hidden="true">*</b></span>
+          <input
+            type="text"
+            name="name"
+            [(ngModel)]="client.name"
+            #name="ngModel"
+            required
+            minlength="2"
+            maxlength="120"
+            autocomplete="name"
+            placeholder="Ex.: Marina Oliveira"
+          />
+          <small class="field-error" *ngIf="name.invalid && name.touched">Informe um nome com pelo menos 2 caracteres.</small>
+        </label>
+
+        <label class="field">
+          <span>E-mail <b aria-hidden="true">*</b></span>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="client.email"
+            #email="ngModel"
+            required
+            email
+            maxlength="160"
+            autocomplete="email"
+            placeholder="cliente@exemplo.com"
+          />
+          <small class="field-error" *ngIf="email.invalid && email.touched">Informe um e-mail válido.</small>
+        </label>
+
+        <label class="field">
+          <span>Telefone</span>
+          <input
+            type="tel"
+            name="phone"
+            [(ngModel)]="client.phone"
+            maxlength="30"
+            autocomplete="tel"
+            placeholder="(11) 99999-0000"
+          />
+        </label>
+
+        <label class="field field-full">
+          <span>Cidade</span>
+          <input
+            type="text"
+            name="city"
+            [(ngModel)]="client.city"
+            maxlength="100"
+            autocomplete="address-level2"
+            placeholder="Ex.: São Paulo"
+          />
+        </label>
+      </div>
+
+      <label class="status-toggle">
+        <input type="checkbox" name="status" [(ngModel)]="client.status" />
+        <span class="toggle" aria-hidden="true"></span>
+        <span>
+          <strong>Cliente ativo</strong>
+          <small>Clientes ativos aparecem como relacionamento em andamento.</small>
+        </span>
+      </label>
+
+      <div class="form-actions">
+        <a routerLink="/" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary" [disabled]="saving">
+          {{ saving ? 'Salvando…' : (id ? 'Salvar alterações' : 'Cadastrar cliente') }}
+        </button>
+      </div>
+    </fieldset>
+  </form>
+</section>
+
